@@ -1,0 +1,54 @@
+# HsvTargetDetector CMake config file
+#
+# This file sets the following variables:
+# HsvTargetDetector_FOUND - Always TRUE.
+# HsvTargetDetector_INCLUDE_DIRS - Directories containing the HsvTargetDetector include files.
+# HsvTargetDetector_IDL_DIRS - Directories containing the HsvTargetDetector IDL files.
+# HsvTargetDetector_LIBRARIES - Libraries needed to use HsvTargetDetector.
+# HsvTargetDetector_DEFINITIONS - Compiler flags for HsvTargetDetector.
+# HsvTargetDetector_VERSION - The version of HsvTargetDetector found.
+# HsvTargetDetector_VERSION_MAJOR - The major version of HsvTargetDetector found.
+# HsvTargetDetector_VERSION_MINOR - The minor version of HsvTargetDetector found.
+# HsvTargetDetector_VERSION_REVISION - The revision version of HsvTargetDetector found.
+# HsvTargetDetector_VERSION_CANDIDATE - The candidate version of HsvTargetDetector found.
+
+message(STATUS "Found HsvTargetDetector-@PROJECT_VERSION@")
+set(HsvTargetDetector_FOUND TRUE)
+
+find_package(<dependency> REQUIRED)
+
+#set(HsvTargetDetector_INCLUDE_DIRS
+#    "@CMAKE_INSTALL_PREFIX@/include/@PROJECT_NAME_LOWER@-@PROJECT_VERSION_MAJOR@"
+#    ${<dependency>_INCLUDE_DIRS}
+#    )
+#
+#set(HsvTargetDetector_IDL_DIRS
+#    "@CMAKE_INSTALL_PREFIX@/include/@PROJECT_NAME_LOWER@-@PROJECT_VERSION_MAJOR@/idl")
+set(HsvTargetDetector_INCLUDE_DIRS
+    "@CMAKE_INSTALL_PREFIX@/include/@CPACK_PACKAGE_FILE_NAME@"
+    ${<dependency>_INCLUDE_DIRS}
+    )
+set(HsvTargetDetector_IDL_DIRS
+    "@CMAKE_INSTALL_PREFIX@/include/@CPACK_PACKAGE_FILE_NAME@/idl")
+
+
+if(WIN32)
+    set(HsvTargetDetector_LIBRARIES
+        "@CMAKE_INSTALL_PREFIX@/@LIB_INSTALL_DIR@/@CMAKE_SHARED_LIBRARY_PREFIX@@PROJECT_NAME_LOWER@@CMAKE_STATIC_LIBRARY_SUFFIX@"
+        ${<dependency>_LIBRARIES}
+        )
+else(WIN32)
+    set(HsvTargetDetector_LIBRARIES
+        "@CMAKE_INSTALL_PREFIX@/@LIB_INSTALL_DIR@/@CMAKE_SHARED_LIBRARY_PREFIX@@PROJECT_NAME_LOWER@@CMAKE_SHARED_LIBRARY_SUFFIX@"
+        ${<dependency>_LIBRARIES}
+        )
+endif(WIN32)
+
+set(HsvTargetDetector_DEFINITIONS ${<dependency>_DEFINITIONS})
+
+set(HsvTargetDetector_VERSION @PROJECT_VERSION@)
+set(HsvTargetDetector_VERSION_MAJOR @PROJECT_VERSION_MAJOR@)
+set(HsvTargetDetector_VERSION_MINOR @PROJECT_VERSION_MINOR@)
+set(HsvTargetDetector_VERSION_REVISION @PROJECT_VERSION_REVISION@)
+set(HsvTargetDetector_VERSION_CANDIDATE @PROJECT_VERSION_CANDIDATE@)
+

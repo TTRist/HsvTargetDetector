@@ -1,2 +1,2 @@
-# HsvTargetDetector
-ユビキタス用　色認識RTC
+# Ubiquitous_ColorDetector
+ユビキタスJetbotの色認識RTC
