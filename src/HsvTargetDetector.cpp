@@ -15,21 +15,8 @@
 #include <opencv2/core/core.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
 
-
-
 using namespace cv;
 using namespace std;
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -271,12 +258,24 @@ RTC::ReturnCode_t HsvTargetDetector::onExecute(RTC::UniqueId ec_id)
 		Mat masked_img;
 		bgr_img.copyTo(masked_img, mask);
 
-		if (!isnan(pos.x)) {
+		static long pre_t = clock();
+		if (isnan(pos.x)) {
+			if (clock() - pre_t > 1000) {
+				m_center_pos.data.x = 0;
+				m_center_pos.data.y = 0;
+				m_center_posOut.write();
+				m_pix_numOut.write();
+			}
+		}
+		else {
 			circle(masked_img, pos, 10, Scalar(0, 255, 0), 3);
 			printf("x: %.1f  size: %d\n", m_center_pos.data.x, countNonZero(mask));
+			pre_t = clock();
 			m_center_posOut.write();
 			m_pix_numOut.write();
 		}
+
+		
 
 
 		imshow("ColorTarget", masked_img);
